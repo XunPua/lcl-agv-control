@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- This is the main XACRO file for spawning the robot, containing all required xacro files.
+    the user can choose to use ros2 control and the activation of sim_mode -->
+
+<robot xmlns:xacro="https://www.ros.org/wiki/xacro" name="agv">
+
+  <!-- Arguments -->
+  <xacro:arg name="use_ros2_control" default="true"/>
+  <xacro:arg name="sim_mode" default="false"/>
+  
+  <!-- Main AGV body -->
+  <xacro:include filename="agv_body.xacro" />
+
+  <!-- Use ROS2 Control -->
+  <xacro:if value="$(arg use_ros2_control)">
+    <xacro:include filename="ros2_control.xacro" />
+  </xacro:if>
+
+  <!-- DONT Use ROS2 Control -->
+  <xacro:unless value="$(arg use_ros2_control)">
+    <xacro:include filename="gazebo_control.xacro" />
+  </xacro:unless>
+  
+  <!-- Start Lidar and IMU -->
+  <xacro:include filename="lidar.xacro" />
+  <xacro:include filename="imu.xacro" />
+
+</robot>

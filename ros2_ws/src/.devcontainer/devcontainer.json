@@ -1,0 +1,54 @@
+{
+    "name": "LCL AGV ROS2 Development Container",  // Name of container
+    "privileged": false,  // Privileged is used by a lot of people, but its also gives docker too much access. Solve by device and bind-mounts
+    "remoteUser": "ros",  // name of remote user
+    "build": {
+        "dockerfile": "Dockerfile",  // Define Dockerfile
+        "args": {
+            "USERNAME": "ros"  // define username argument
+        }
+    },
+    "workspaceFolder": "/home/ros2_ws",  // define workspace folder in container
+    "workspaceMount": "source=${localWorkspaceFolder},target=/home/ros2_ws/src,type=bind",  // Bind mount local workspace (git repo) to container
+    "customizations": {
+        "vscode": {  // VSCode extensions
+            "extensions":[
+                "ms-vscode.cpptools",
+                "ms-vscode.cpptools-themes",
+                "twxs.cmake",
+                "donjayamanne.python-extension-pack",
+                "eamodio.gitlens",
+                "jaehyunshim.vscode-ros2",
+                "nonanonno.vscode-ros2",
+                "smilerobotics.urdf",
+                "ms-azuretools.vscode-docker"
+                // Add any vscode extension you like here
+            ]
+        }
+    },
+    "containerEnv": {
+        "DISPLAY": "unix:0"  // define display port for interfaces
+        // "ROS_LOCALHOST_ONLY": "0",  // commented out to enable connection to local host (interesting for hardware deployment)
+        // "ROS_DOMAIN_ID": "42"
+    },
+    "runArgs": [  // Run arguments
+        "--net=host",
+        "--ipc=host",
+        "--pid=host",
+        "-e", 
+        "DISPLAY=${env:DISPLAY}",
+        "--device-cgroup-rule=c *:* rmw"  // For all devices
+    ],
+    // Extra mounts
+    "mounts": [
+        "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached",  // Display over SSH
+        "source=/home/jetson/.Xauthority,target=/home/ros/.Xauthority,type=bind",  // Permission to display over SSH
+        "source=${localWorkspaceFolder}/../cache/humble/build,target=/home/ros2_ws/build,type=bind",  // colcon build - build
+        "source=${localWorkspaceFolder}/../cache/humble/install,target=/home/ros2_ws/install,type=bind",  // colcon build - install
+        "source=${localWorkspaceFolder}/../cache/humble/log,target=/home/ros2_ws/log,type=bind",  // colcon build - log
+        "source=/dev,target=/dev,type=bind,consistency=cached",  // ubuntu dev file for all hardware
+        "source=/tmp/argus_socket,target=/tmp/argus_socket,type=bind,consistency=cached"
+    ],
+    // Post create command - dependency check and permission for read write for workspace folder
+    "postCreateCommand": "sudo rosdep update && sudo rosdep install --from-paths src --ignore-src -y && sudo chown -R ros /home/ros2_ws/"
+}

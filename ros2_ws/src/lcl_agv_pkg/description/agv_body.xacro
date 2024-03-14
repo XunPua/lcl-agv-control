@@ -1,0 +1,3497 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This XACRO contains the URDF of the AGV, with slight modification from the original URDF generated from Solidworks -->
+<robot xmlns:xacro="https://www.ros.org/wiki/xacro">
+
+  <xacro:include filename="inertial_macros.xacro"/>
+
+  <xacro:property name="wheel_base_mass" value="0.1"/>
+  <xacro:property name="wheel_base_thickness" value="0.04"/>
+  <xacro:property name="wheel_base_radius" value="0.04"/>
+
+
+
+  <link name="base_link">
+  </link>
+
+  <joint name="base_footprint_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="base_footprint"/>
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+  </joint>
+
+  <link name="base_footprint">
+  </link>
+
+  <joint name="chassis_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="chassis"/>
+    <origin xyz="0.0 0.0 0.0146" rpy="0.0 0.0 0.0"/>
+  </joint>
+    
+  <link
+    name="chassis">
+    <inertial>
+      <origin
+        xyz="0.0026186 -2.7263E-05 0.063823"
+        rpy="0 0 0" />
+      <mass
+        value="1.5407" />
+      <inertia
+        ixx="0.0164"
+        ixy="0"
+        ixz="0"
+        iyy="0.0087"
+        iyz="0"
+        izz="0.1140" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/chassis.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.62745 0.62745 0.62745 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/chassis.STL" />
+      </geometry>
+    </collision>
+  </link>  
+      
+  <link
+    name="front_left">
+    <xacro:inertial_cylinder mass="${wheel_base_mass}" length="${wheel_base_thickness}" radius="${wheel_base_radius}">
+      <origin
+        xyz="0 0.001938 0"
+        rpy="0 0 0" />
+    </xacro:inertial_cylinder>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 3.142" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/front_left.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.96471 0.96471 0.95294 1" />
+      </material>
+    </visual>
+    <!-- <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 3.142" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/front_left.STL" />
+      </geometry>
+    </collision> -->
+  </link>
+  <joint
+    name="front_left_joint"
+    type="continuous">
+    <origin
+      xyz="0.125 0.175 0.035"
+      rpy="0 0 0" />
+    <parent
+      link="chassis" />
+    <child
+      link="front_left" />
+    <axis
+      xyz="0 1 0" />
+    <limit effort="-10.0" velocity="-2.0"/>
+    <dynamics damping="0.0" friction="0.02"/>
+  </joint>
+  <link
+    name="fl_r1">
+    <inertial>
+      <origin
+        xyz="-1.33226762955019E-15 -2.77555756156289E-17 -1.38777878078145E-17"
+        rpy="0 0 0" />
+      <mass
+        value="0.00521298522084218" />
+      <inertia
+        ixx="1.46203935840609E-07"
+        ixy="-7.44462551297725E-24"
+        ixz="3.30872245021211E-24"
+        iyy="4.9748844282279E-07"
+        iyz="1.32348898008484E-23"
+        izz="4.9748844282279E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/fl_r1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/fl_r1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fl_r1_j"
+    type="continuous">
+    <origin
+      xyz="0.0108281957152235 0 -0.040411376563515"
+      rpy="-0.184579671071257 0.186727217287703 2.35334549505159" />
+    <parent
+      link="front_left" />
+    <child
+      link="fl_r1" />
+    <axis
+      xyz="1 0 0" />
+  </joint>
+  <link
+    name="fl_r2">
+    <inertial>
+      <origin
+        xyz="-9.71445146547012E-16 1.73472347597681E-16 4.16333634234434E-17"
+        rpy="0 0 0" />
+      <mass
+        value="0.00521298522084213" />
+      <inertia
+        ixx="1.46203935839799E-07"
+        ixy="-2.77974044848445E-21"
+        ixz="-2.18375681713999E-22"
+        iyy="4.97488442822385E-07"
+        iyz="0"
+        izz="4.97488442822385E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/fl_r2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/fl_r2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fl_r2_j"
+    type="continuous">
+    <origin
+      xyz="-0.0108281957152238 0 -0.0404113765635149"
+      rpy="0.18457967107126 -0.186727217287703 2.35334549505158" />
+    <parent
+      link="front_left" />
+    <child
+      link="fl_r2" />
+    <axis
+      xyz="-1 0 0" />
+  </joint>
+  <link
+    name="fl_r3">
+    <inertial>
+      <origin
+        xyz="-8.88178419700125E-16 2.08166817117217E-16 2.77555756156289E-17"
+        rpy="0 0 0" />
+      <mass
+        value="0.00521298522084213" />
+      <inertia
+        ixx="1.462039358398E-07"
+        ixy="-2.87858853168454E-21"
+        ixz="-6.78288102293483E-22"
+        iyy="4.97488442822386E-07"
+        iyz="-3.97046694025453E-23"
+        izz="4.97488442822386E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/fl_r3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/fl_r3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fl_r3_j"
+    type="continuous">
+    <origin
+      xyz="-0.0295831808482911 0 -0.0295831808482911"
+      rpy="0.608569627426156 -0.53191982568626 2.19999715783653" />
+    <parent
+      link="front_left" />
+    <child
+      link="fl_r3" />
+    <axis
+      xyz="-1 0 0" />
+  </joint>
+  <link
+    name="fl_r4">
+    <inertial>
+      <origin
+        xyz="-6.93889390390723E-16 2.91433543964104E-16 1.38777878078145E-17"
+        rpy="0 0 0" />
+      <mass
+        value="0.00521298522084213" />
+      <inertia
+        ixx="1.46203935838689E-07"
+        ixy="-2.66683029487096E-21"
+        ixz="-8.76811449306209E-22"
+        iyy="4.97488442821782E-07"
+        iyz="0"
+        izz="4.97488442821782E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/fl_r4.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/fl_r4.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fl_r4_j"
+    type="continuous">
+    <origin
+      xyz="-0.0404113765635148 0 -0.010828195715224"
+      rpy="1.20368211721965 -0.765410198872839 1.83117472016047" />
+    <parent
+      link="front_left" />
+    <child
+      link="fl_r4" />
+    <axis
+      xyz="-1 0 0" />
+  </joint>
+  <link
+    name="fl_r5">
+    <inertial>
+      <origin
+        xyz="-7.07767178198537E-16 3.33066907387547E-16 2.77555756156289E-17"
+        rpy="0 0 0" />
+      <mass
+        value="0.00521298522084213" />
+      <inertia
+        ixx="1.4620393583956E-07"
+        ixy="-2.79917919287945E-21"
+        ixz="-1.23084475147891E-21"
+        iyy="4.97488442822266E-07"
+        iyz="-6.61744490042422E-24"
+        izz="4.97488442822266E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/fl_r5.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/fl_r5.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fl_r5_j"
+    type="continuous">
+    <origin
+      xyz="-0.040411376563515 0 0.0108281957152237"
+      rpy="1.93791053637015 -0.765410198872838 1.31041793342932" />
+    <parent
+      link="front_left" />
+    <child
+      link="fl_r5" />
+    <axis
+      xyz="-1 0 0" />
+  </joint>
+  <link
+    name="fl_r6">
+    <inertial>
+      <origin
+        xyz="-7.0777E-16 3.3307E-16 1.1102E-16"
+        rpy="0 0 0" />
+      <mass
+        value="0.005213" />
+      <inertia
+        ixx="1.462E-07"
+        ixy="-2.8455E-21"
+        ixz="-1.6444E-21"
+        iyy="4.9749E-07"
+        iyz="-3.9705E-23"
+        izz="4.9749E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/fl_r6.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.29804 0.29804 0.29804 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/fl_r6.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fl_r6_j"
+    type="continuous">
+    <origin
+      xyz="-0.0295831808482912 0 0.0295831808482911"
+      rpy="2.53302302616364 -0.53191982568626 0.941595495753268" />
+    <parent
+      link="front_left" />
+    <child
+      link="fl_r6" />
+    <axis
+      xyz="-1 0 0" />
+  </joint>
+  <link
+    name="fl_r7">
+    <inertial>
+      <origin
+        xyz="-7.91033905045424E-16 3.88578058618805E-16 0"
+        rpy="0 0 0" />
+      <mass
+        value="0.00521298522084213" />
+      <inertia
+        ixx="1.4620393583876E-07"
+        ixy="-2.64201487649437E-21"
+        ixz="-2.36904527435187E-21"
+        iyy="4.97488442821866E-07"
+        iyz="-1.98523347012727E-23"
+        izz="4.97488442821866E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/fl_r7.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/fl_r7.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fl_r7_j"
+    type="continuous">
+    <origin
+      xyz="-0.0108281957152239 0 0.0404113765635149"
+      rpy="2.95701298251853 -0.186727217287703 0.788247158538211" />
+    <parent
+      link="front_left" />
+    <child
+      link="fl_r7" />
+    <axis
+      xyz="-1 0 0" />
+  </joint>
+  <link
+    name="fl_r8">
+    <inertial>
+      <origin
+        xyz="-8.84708972748172E-16 4.16333634234434E-16 3.46944695195361E-17"
+        rpy="0 0 0" />
+      <mass
+        value="0.00521298522084218" />
+      <inertia
+        ixx="1.46203935840594E-07"
+        ixy="-2.80331509594221E-21"
+        ixz="-1.63781761285499E-21"
+        iyy="4.97488442822783E-07"
+        iyz="1.98523347012727E-23"
+        izz="4.97488442822783E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/fl_r8.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/fl_r8.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fl_r8_j"
+    type="continuous">
+    <origin
+      xyz="0.010828 0 0.040411"
+      rpy="-2.957 0.18673 0.78825" />
+    <parent
+      link="front_left" />
+    <child
+      link="fl_r8" />
+    <axis
+      xyz="-1 0 0" />
+  </joint>
+  <link
+    name="fl_r9">
+    <inertial>
+      <origin
+        xyz="-9.71445146547012E-16 4.44089209850063E-16 1.2490009027033E-16"
+        rpy="0 0 0" />
+      <mass
+        value="0.00521298522084218" />
+      <inertia
+        ixx="1.46203935841294E-07"
+        ixy="-2.62712562546842E-21"
+        ixz="-2.55764245401396E-21"
+        iyy="4.9748844282318E-07"
+        iyz="-5.29395592033938E-23"
+        izz="4.9748844282318E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/fl_r9.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/fl_r9.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fl_r9_j"
+    type="continuous">
+    <origin
+      xyz="0.0295831808482913 0 0.0295831808482911"
+      rpy="-2.53302302616364 0.531919825686261 0.941595495753267" />
+    <parent
+      link="front_left" />
+    <child
+      link="fl_r9" />
+    <axis
+      xyz="-1 0 0" />
+  </joint>
+  <link
+    name="fl_r10">
+    <inertial>
+      <origin
+        xyz="-9.99200722162641E-16 4.71844785465692E-16 2.77555756156289E-17"
+        rpy="0 0 0" />
+      <mass
+        value="0.00521298522084219" />
+      <inertia
+        ixx="1.46203935840626E-07"
+        ixy="-2.58080351116545E-21"
+        ixz="-2.79421610920413E-21"
+        iyy="4.974884428228E-07"
+        iyz="-2.64697796016969E-23"
+        izz="4.974884428228E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/fl_r10.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/fl_r10.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fl_r10_j"
+    type="continuous">
+    <origin
+      xyz="0.040411376563515 0 0.0108281957152236"
+      rpy="-1.93791053637015 0.765410198872839 1.31041793342932" />
+    <parent
+      link="front_left" />
+    <child
+      link="fl_r10" />
+    <axis
+      xyz="-1 0 0" />
+  </joint>
+  <link
+    name="fl_r11">
+    <inertial>
+      <origin
+        xyz="-9.85322934354826E-16 4.9960036108132E-16 5.55111512312578E-17"
+        rpy="0 0 0" />
+      <mass
+        value="0.00521298522084219" />
+      <inertia
+        ixx="1.46203935839819E-07"
+        ixy="-2.48815928255951E-21"
+        ixz="-4.04822191783452E-21"
+        iyy="4.97488442822395E-07"
+        iyz="2.64697796016969E-23"
+        izz="4.97488442822395E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/fl_r11.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/fl_r11.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fl_r11_j"
+    type="continuous">
+    <origin
+      xyz="0.0404113765635148 0 -0.010828195715224"
+      rpy="-1.20368211721965 0.76541019887284 1.83117472016047" />
+    <parent
+      link="front_left" />
+    <child
+      link="fl_r11" />
+    <axis
+      xyz="-1 0 0" />
+  </joint>
+  <link
+    name="fl_r12">
+    <inertial>
+      <origin
+        xyz="-8.88178419700125E-16 5.27355936696949E-16 8.32667268468867E-17"
+        rpy="0 0 0" />
+      <mass
+        value="0.00521298522084213" />
+      <inertia
+        ixx="1.462039358398E-07"
+        ixy="-2.80910536023008E-21"
+        ixz="-3.32195734001296E-21"
+        iyy="4.97488442822385E-07"
+        iyz="-1.32348898008484E-23"
+        izz="4.97488442822385E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/fl_r12.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/fl_r12.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fl_r12_j"
+    type="continuous">
+    <origin
+      xyz="0.029583180848291 0 -0.0295831808482913"
+      rpy="-0.608569627426157 0.53191982568626 2.19999715783653" />
+    <parent
+      link="front_left" />
+    <child
+      link="fl_r12" />
+    <axis
+      xyz="-1 0 0" />
+  </joint>
+  <link
+    name="front_right">
+    <xacro:inertial_cylinder mass="${wheel_base_mass}" length="${wheel_base_thickness}" radius="${wheel_base_radius}">
+      <origin
+        xyz="0 0.001938 0"
+        rpy="0 0 0" />
+    </xacro:inertial_cylinder>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/front_right.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.96471 0.96471 0.95294 1" />
+      </material>
+    </visual>
+    <!-- <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/front_right.STL" />
+      </geometry>
+    </collision> -->
+  </link>
+  <joint
+    name="front_right_joint"
+    type="continuous">
+    <origin
+      xyz="0.125 -0.175 0.035"
+      rpy="0 0 0" />
+    <parent
+      link="chassis" />
+    <child
+      link="front_right" />
+    <axis
+      xyz="0 -1 0" />
+    <limit effort="-10.0" velocity="-2.0"/>
+    <dynamics damping="0.0" friction="0.02"/>
+  </joint>
+  <link
+    name="fr_r1">
+    <inertial>
+      <origin
+        xyz="1.346145417358E-15 5.55111512312578E-17 5.55111512312578E-17"
+        rpy="0 0 0" />
+      <mass
+        value="0.00521298522084219" />
+      <inertia
+        ixx="1.46203935840626E-07"
+        ixy="-2.59403840096629E-21"
+        ixz="-1.04224757181681E-22"
+        iyy="4.97488442822799E-07"
+        iyz="-1.65436122510606E-24"
+        izz="4.974884428228E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/fr_r1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/fr_r1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fr_r1_j"
+    type="continuous">
+    <origin
+      xyz="0.041697653948463 0 0.00341098715908705"
+      rpy="-1.45393200151615 0.796460248572946 -1.48706552819724" />
+    <parent
+      link="front_right" />
+    <child
+      link="fr_r1" />
+    <axis
+      xyz="-1 0 0" />
+  </joint>
+  <link
+    name="fr_r2">
+    <inertial>
+      <origin
+        xyz="1.36002320516582E-15 -1.11022302462516E-16 -5.55111512312578E-17"
+        rpy="0 0 0" />
+      <mass
+        value="0.00521298522084213" />
+      <inertia
+        ixx="1.46203935840007E-07"
+        ixy="-2.77601813572796E-21"
+        ixz="8.07328277851755E-22"
+        iyy="4.9748844282249E-07"
+        iyz="2.64697796016969E-23"
+        izz="4.9748844282249E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/fr_r2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/fr_r2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fr_r2_j"
+    type="continuous">
+    <origin
+      xyz="0.0344057340180383 0 0.0238028285059845"
+      rpy="-0.788973299905337 0.630896739502125 -1.04098291719205" />
+    <parent
+      link="front_right" />
+    <child
+      link="fr_r2" />
+    <axis
+      xyz="-1 0 0" />
+  </joint>
+  <link
+    name="fr_r3">
+    <inertial>
+      <origin
+        xyz="1.27675647831893E-15 -2.42861286636753E-16 -8.32667268468867E-17"
+        rpy="0 0 0" />
+      <mass
+        value="0.00521298522084213" />
+      <inertia
+        ixx="1.46203935839013E-07"
+        ixy="-2.01170324972896E-21"
+        ixz="1.07864351876915E-21"
+        iyy="4.97488442821993E-07"
+        iyz="-2.64697796016969E-23"
+        izz="4.97488442821993E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/fr_r3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/fr_r3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fr_r3_j"
+    type="continuous">
+    <origin
+      xyz="0.0178948254424796 0 0.0378167211771273"
+      rpy="-0.318495991661672 0.311826786976003 -0.821396024855855" />
+    <parent
+      link="front_right" />
+    <child
+      link="fr_r3" />
+    <axis
+      xyz="-1 0 0" />
+  </joint>
+  <link
+    name="fr_r4">
+    <inertial>
+      <origin
+        xyz="1.19348975147204E-15 -3.88578058618805E-16 -8.32667268468867E-17"
+        rpy="0 0 0" />
+      <mass
+        value="0.00521298522084213" />
+      <inertia
+        ixx="1.46203935839495E-07"
+        ixy="-5.68169683247361E-22"
+        ixz="1.3929721515393E-21"
+        iyy="4.97488442822233E-07"
+        iyz="-1.32348898008484E-23"
+        izz="4.97488442822233E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/fr_r4.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/fr_r4.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fr_r4_j"
+    type="continuous">
+    <origin
+      xyz="-0.00341098715908782 0 0.0416976539484661"
+      rpy="0.0569379571685739 -0.0585130533362802 -0.772581815869864" />
+    <parent
+      link="front_right" />
+    <child
+      link="fr_r4" />
+    <axis
+      xyz="-1 0 0" />
+  </joint>
+  <link
+    name="fr_r5">
+    <inertial>
+      <origin
+        xyz="1.13797860024079E-15 -4.44089209850063E-16 -9.0205620750794E-17"
+        rpy="0 0 0" />
+      <mass
+        value="0.00521298522084213" />
+      <inertia
+        ixx="1.46203935839245E-07"
+        ixy="8.56959114604937E-22"
+        ixz="1.16467030247466E-21"
+        iyy="4.97488442822108E-07"
+        iyz="1.32348898008484E-23"
+        izz="4.97488442822108E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/fr_r5.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/fr_r5.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fr_r5_j"
+    type="continuous">
+    <origin
+      xyz="-0.0238028285059854 0 0.0344057340180414"
+      rpy="0.449192642058832 -0.420358310555093 -0.868308635060523" />
+    <parent
+      link="front_right" />
+    <child
+      link="fr_r5" />
+    <axis
+      xyz="-1 0 0" />
+  </joint>
+  <link
+    name="fr_r6">
+    <inertial>
+      <origin
+        xyz="1.0547118733939E-15 -4.71844785465692E-16 -1.52655665885959E-16"
+        rpy="0 0 0" />
+      <mass
+        value="0.00521298522084213" />
+      <inertia
+        ixx="1.46203935839245E-07"
+        ixy="2.00508580482854E-21"
+        ixz="1.38966342908909E-22"
+        iyy="4.97488442822108E-07"
+        iyz="-2.64697796016969E-23"
+        izz="4.97488442822108E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/fr_r6.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/fr_r6.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fr_r6_j"
+    type="continuous">
+    <origin
+      xyz="-0.0378167211771283 0 0.0178948254424828"
+      rpy="0.974228103963476 -0.705413605634191 -1.15603770017011" />
+    <parent
+      link="front_right" />
+    <child
+      link="fr_r6" />
+    <axis
+      xyz="-1 0 0" />
+  </joint>
+  <link
+    name="fr_r7">
+    <inertial>
+      <origin
+        xyz="9.99200722162641E-16 -4.30211422042248E-16 0"
+        rpy="0 0 0" />
+      <mass
+        value="0.00521298522084213" />
+      <inertia
+        ixx="1.46203935839976E-07"
+        ixy="2.83888386228199E-21"
+        ixz="-7.76722595187293E-22"
+        iyy="4.97488442822474E-07"
+        iyz="1.15805285757424E-23"
+        izz="4.97488442822474E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/fr_r7.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/fr_r7.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fr_r7_j"
+    type="continuous">
+    <origin
+      xyz="-0.0416976539484671 0 -0.00341098715908482"
+      rpy="1.68766065207364 -0.796460248572946 -1.65452712539255" />
+    <parent
+      link="front_right" />
+    <child
+      link="fr_r7" />
+    <axis
+      xyz="-1 0 0" />
+  </joint>
+  <link
+    name="fr_r8">
+    <inertial>
+      <origin
+        xyz="9.99200722162641E-16 -3.33066907387547E-16 -2.77555756156289E-17"
+        rpy="0 0 0" />
+      <mass
+        value="0.00521298522084213" />
+      <inertia
+        ixx="1.462039358398E-07"
+        ixy="2.70322624182329E-21"
+        ixz="-1.99185091502769E-21"
+        iyy="4.97488442822385E-07"
+        iyz="2.64697796016969E-23"
+        izz="4.97488442822385E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/fr_r8.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/fr_r8.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fr_r8_j"
+    type="continuous">
+    <origin
+      xyz="-0.0344057340180423 0 -0.0238028285059825"
+      rpy="2.35261935368446 -0.630896739502125 -2.10060973639774" />
+    <parent
+      link="front_right" />
+    <child
+      link="fr_r8" />
+    <axis
+      xyz="-1 0 0" />
+  </joint>
+  <link
+    name="fr_r9">
+    <inertial>
+      <origin
+        xyz="9.85322934354826E-16 -2.77555756156289E-16 -4.85722573273506E-17"
+        rpy="0 0 0" />
+      <mass
+        value="0.00521298522084213" />
+      <inertia
+        ixx="1.4620393583918E-07"
+        ixy="1.95131906501259E-21"
+        ixz="-3.53371557682653E-21"
+        iyy="4.97488442822027E-07"
+        iyz="-5.29395592033938E-23"
+        izz="4.97488442822027E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/fr_r9.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/fr_r9.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fr_r9_j"
+    type="continuous">
+    <origin
+      xyz="-0.017895 0 -0.037817"
+      rpy="2.8231 -0.31183 -2.3202" />
+    <parent
+      link="front_right" />
+    <child
+      link="fr_r9" />
+    <axis
+      xyz="-1 0 0" />
+  </joint>
+  <link
+    name="fr_r10">
+    <inertial>
+      <origin
+        xyz="9.5062846483529E-16 -1.94289029309402E-16 8.32667268468867E-17"
+        rpy="0 0 0" />
+      <mass
+        value="0.00521298522084213" />
+      <inertia
+        ixx="1.46203935839494E-07"
+        ixy="1.02859909170969E-21"
+        ixz="-4.07303733621111E-21"
+        iyy="4.97488442822233E-07"
+        iyz="-8.27180612553028E-24"
+        izz="4.97488442822233E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/fr_r10.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/fr_r10.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fr_r10_j"
+    type="continuous">
+    <origin
+      xyz="0.00341098715908406 0 -0.041697653948464"
+      rpy="-3.08465469642122 0.0585130533362802 -2.36901083771993" />
+    <parent
+      link="front_right" />
+    <child
+      link="fr_r10" />
+    <axis
+      xyz="-1 0 0" />
+  </joint>
+  <link
+    name="fr_r11">
+    <inertial>
+      <origin
+        xyz="9.64506252643105E-16 -1.94289029309402E-16 8.32667268468867E-17"
+        rpy="0 0 0" />
+      <mass
+        value="0.00521298522084213" />
+      <inertia
+        ixx="1.462039358398E-07"
+        ixy="-4.91345283856498E-22"
+        ixz="-4.79433883035735E-21"
+        iyy="4.97488442822386E-07"
+        iyz="1.32348898008484E-23"
+        izz="4.97488442822386E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/fr_r11.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/fr_r11.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fr_r11_j"
+    type="continuous">
+    <origin
+      xyz="0.0238028285059816 0 -0.0344057340180391"
+      rpy="-2.69240001153096 0.420358310555092 -2.27328401852927" />
+    <parent
+      link="front_right" />
+    <child
+      link="fr_r11" />
+    <axis
+      xyz="-1 0 0" />
+  </joint>
+  <link
+    name="fr_r12">
+    <inertial>
+      <origin
+        xyz="-2.96984659087229E-15 -4.10782519111308E-15 3.60822483003176E-16"
+        rpy="0 0 0" />
+      <mass
+        value="0.00521298522084213" />
+      <inertia
+        ixx="1.46203935839849E-07"
+        ixy="4.96308367531817E-22"
+        ixz="-2.7594745234769E-21"
+        iyy="4.9748844282241E-07"
+        iyz="-2.64697796016969E-23"
+        izz="4.9748844282241E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/fr_r12.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/fr_r12.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fr_r12_j"
+    type="continuous">
+    <origin
+      xyz="0.0378167211771216 0 -0.0178948254424853"
+      rpy="-2.16736454962631 0.705413605634199 -1.98555495341969" />
+    <parent
+      link="front_right" />
+    <child
+      link="fr_r12" />
+    <axis
+      xyz="-1 0 0" />
+  </joint>
+  <link
+    name="back_left">
+    <xacro:inertial_cylinder mass="${wheel_base_mass}" length="${wheel_base_thickness}" radius="${wheel_base_radius}">
+      <origin
+        xyz="0 -0.001938 0"
+        rpy="0 0 0" />
+    </xacro:inertial_cylinder>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/back_left.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.70196 0.70196 0.70196 1" />
+      </material>
+    </visual>
+    <!-- <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/back_left.STL" />
+      </geometry>
+    </collision> -->
+  </link>
+  <joint
+    name="back_left_joint"
+    type="continuous">
+    <origin
+      xyz="-0.125 0.175 0.035"
+      rpy="0 0 0" />
+    <parent
+      link="chassis" />
+    <child
+      link="back_left" />
+    <axis
+      xyz="0 1 0" />
+    <limit effort="-10.0" velocity="-2.0"/>
+    <dynamics damping="0.0" friction="0.02"/>
+  </joint>
+  <link
+    name="bl_r1">
+    <inertial>
+      <origin
+        xyz="1.3392065234541E-15 0 -3.46944695195361E-18"
+        rpy="0 0 0" />
+      <mass
+        value="0.00521298522084218" />
+      <inertia
+        ixx="1.46203935840626E-07"
+        ixy="2.59714032826337E-21"
+        ixz="9.26442286059391E-23"
+        iyy="4.97488442822799E-07"
+        iyz="0"
+        izz="4.97488442822799E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/bl_r1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/bl_r1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="bl_r1_j"
+    type="continuous">
+    <origin
+      xyz="0.00683131039043691 0 -0.0412754452011714"
+      rpy="-0.114815644885737 -0.117388821784223 0.777669265501086" />
+    <parent
+      link="back_left" />
+    <child
+      link="bl_r1" />
+    <axis
+      xyz="-1 0 0" />
+  </joint>
+  <link
+    name="bl_r2">
+    <inertial>
+      <origin
+        xyz="1.31492039479042E-15 1.11022302462516E-16 5.55111512312578E-17"
+        rpy="0 0 0" />
+      <mass
+        value="0.00521298522084218" />
+      <inertia
+        ixx="1.46203935840609E-07"
+        ixy="2.81654998574306E-21"
+        ixz="-7.97402110501119E-22"
+        iyy="4.9748844282279E-07"
+        iyz="1.98523347012727E-23"
+        izz="4.9748844282279E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/bl_r2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/bl_r2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="bl_r2_j"
+    type="continuous">
+    <origin
+      xyz="-0.0147216342613307 0 -0.0391612392919454"
+      rpy="0.256184846360432 0.255154655868895 0.803954852175351" />
+    <parent
+      link="back_left" />
+    <child
+      link="bl_r2" />
+    <axis
+      xyz="-1 0 0" />
+  </joint>
+  <link
+    name="bl_r3">
+    <inertial>
+      <origin
+        xyz="1.30451205393456E-15 1.94289029309402E-16 8.32667268468867E-17"
+        rpy="0 0 0" />
+      <mass
+        value="0.00521298522084212" />
+      <inertia
+        ixx="1.46203935840007E-07"
+        ixy="1.95545496807536E-21"
+        ixz="-1.14150924532318E-21"
+        iyy="4.97488442822488E-07"
+        iyz="0"
+        izz="4.97488442822488E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/bl_r3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/bl_r3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="bl_r3_j"
+    type="continuous">
+    <origin
+      xyz="-0.0323299289015084 0 -0.0265538109398407"
+      rpy="0.703542095216666 0.587498240267111 0.992066854646223" />
+    <parent
+      link="back_left" />
+    <child
+      link="bl_r3" />
+    <axis
+      xyz="-1 0 0" />
+  </joint>
+  <link
+    name="bl_r4">
+    <inertial>
+      <origin
+        xyz="1.16573417585641E-15 3.88578058618805E-16 5.55111512312578E-17"
+        rpy="0 0 0" />
+      <mass
+        value="0.00521298522084213" />
+      <inertia
+        ixx="1.4620393583876E-07"
+        ixy="5.42630481834786E-22"
+        ixz="-1.44591171074269E-21"
+        iyy="4.97488442821866E-07"
+        iyz="3.30872245021211E-24"
+        izz="4.97488442821866E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/bl_r4.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/bl_r4.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="bl_r4_j"
+    type="continuous">
+    <origin
+      xyz="-0.0412754452011714 0 -0.00683131039043709"
+      rpy="1.33759294661424 0.786162263939272 1.40426917333707" />
+    <parent
+      link="back_left" />
+    <child
+      link="bl_r4" />
+    <axis
+      xyz="-1 0 0" />
+  </joint>
+  <link
+    name="bl_r5">
+    <inertial>
+      <origin
+        xyz="1.16573417585641E-15 4.30211422042248E-16 1.38777878078145E-16"
+        rpy="0 0 0" />
+      <mass
+        value="0.00521298522084212" />
+      <inertia
+        ixx="1.46203935839799E-07"
+        ixy="-6.74979379843271E-22"
+        ixz="-1.02239523711554E-21"
+        iyy="4.97488442822385E-07"
+        iyz="-1.98523347012727E-23"
+        izz="4.97488442822385E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/bl_r5.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/bl_r5.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="bl_r5_j"
+    type="continuous">
+    <origin
+      xyz="-0.0391612392919455 0 0.0147216342613306"
+      rpy="2.06554725885605 0.736096098087181 1.9183197458648" />
+    <parent
+      link="back_left" />
+    <child
+      link="bl_r5" />
+    <axis
+      xyz="-1 0 0" />
+  </joint>
+  <link
+    name="bl_r6">
+    <inertial>
+      <origin
+        xyz="1.02695629777827E-15 4.57966997657877E-16 1.66533453693773E-16"
+        rpy="0 0 0" />
+      <mass
+        value="0.00521298522084213" />
+      <inertia
+        ixx="1.46203935839494E-07"
+        ixy="-1.96868985787621E-21"
+        ixz="-3.04402465419514E-22"
+        iyy="4.97488442822233E-07"
+        iyz="1.32348898008484E-23"
+        izz="4.97488442822232E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/bl_r6.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/bl_r6.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="bl_r6_j"
+    type="continuous">
+    <origin
+      xyz="-0.0265538109398408 0 0.0323299289015084"
+      rpy="2.62178841958616 0.472655016578481 2.24277197065127" />
+    <parent
+      link="back_left" />
+    <child
+      link="bl_r6" />
+    <axis
+      xyz="-1 0 0" />
+  </joint>
+  <link
+    name="bl_r7">
+    <inertial>
+      <origin
+        xyz="9.43689570931383E-16 4.16333634234434E-16 4.16333634234434E-17"
+        rpy="0 0 0" />
+      <mass
+        value="0.00521298522084213" />
+      <inertia
+        ixx="1.46203935839817E-07"
+        ixy="-2.8421925847322E-21"
+        ixz="8.55304753379831E-22"
+        iyy="4.97488442822394E-07"
+        iyz="-9.92616735063633E-24"
+        izz="4.97488442822394E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/bl_r7.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/bl_r7.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="bl_r7_j"
+    type="continuous">
+    <origin
+      xyz="-0.00683131039043697 0 0.0412754452011714"
+      rpy="3.02677700870406 0.117388821784223 2.36392338808871" />
+    <parent
+      link="back_left" />
+    <child
+      link="bl_r7" />
+    <axis
+      xyz="-1 0 0" />
+  </joint>
+  <link
+    name="bl_r8">
+    <inertial>
+      <origin
+        xyz="9.992E-16 3.4001E-16 1.3878E-17"
+        rpy="0 0 0" />
+      <mass
+        value="0.005213" />
+      <inertia
+        ixx="1.462E-07"
+        ixy="-2.7272E-21"
+        ixz="1.9654E-21"
+        iyy="4.9749E-07"
+        iyz="5.9557E-23"
+        izz="4.9749E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/bl_r8.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.29804 0.29804 0.29804 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/bl_r8.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="bl_r8_j"
+    type="continuous">
+    <origin
+      xyz="0.0147216342613308 0 0.0391612392919454"
+      rpy="-2.88540780722936 -0.255154655868895 2.33763780141444" />
+    <parent
+      link="back_left" />
+    <child
+      link="bl_r8" />
+    <axis
+      xyz="-1 0 0" />
+  </joint>
+  <link
+    name="bl_r9">
+    <inertial>
+      <origin
+        xyz="9.71445146547012E-16 2.35922392732846E-16 2.77555756156289E-17"
+        rpy="0 0 0" />
+      <mass
+        value="0.00521298522084212" />
+      <inertia
+        ixx="1.46203935839976E-07"
+        ixy="-1.98854219257748E-21"
+        ixz="3.52048068702569E-21"
+        iyy="4.97488442822472E-07"
+        iyz="2.64697796016969E-23"
+        izz="4.97488442822472E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/bl_r9.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/bl_r9.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="bl_r9_j"
+    type="continuous">
+    <origin
+      xyz="0.0323299289015086 0 0.0265538109398406"
+      rpy="-2.43805055837313 -0.587498240267111 2.14952579894357" />
+    <parent
+      link="back_left" />
+    <child
+      link="bl_r9" />
+    <axis
+      xyz="-1 0 0" />
+  </joint>
+  <link
+    name="bl_r10">
+    <inertial>
+      <origin
+        xyz="9.99200722162641E-16 1.94289029309402E-16 -8.32667268468867E-17"
+        rpy="0 0 0" />
+      <mass
+        value="0.00521298522084213" />
+      <inertia
+        ixx="1.46203935839495E-07"
+        ixy="-9.39677175860239E-22"
+        ixz="4.11274200561365E-21"
+        iyy="4.97488442822234E-07"
+        iyz="9.92616735063633E-24"
+        izz="4.97488442822234E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/bl_r10.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/bl_r10.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="bl_r10_j"
+    type="continuous">
+    <origin
+      xyz="0.0412754452011714 0 0.00683131039043675"
+      rpy="-1.80399970697555 -0.786162263939272 1.73732348025273" />
+    <parent
+      link="back_left" />
+    <child
+      link="bl_r10" />
+    <axis
+      xyz="-1 0 0" />
+  </joint>
+  <link
+    name="bl_r11">
+    <inertial>
+      <origin
+        xyz="9.85322934354826E-16 1.94289029309402E-16 -4.16333634234434E-17"
+        rpy="0 0 0" />
+      <mass
+        value="0.00521298522084213" />
+      <inertia
+        ixx="1.462039358398E-07"
+        ixy="5.09543257332665E-22"
+        ixz="4.70831204665183E-21"
+        iyy="4.97488442822386E-07"
+        iyz="1.32348898008484E-23"
+        izz="4.97488442822386E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/bl_r11.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/bl_r11.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="bl_r11_j"
+    type="continuous">
+    <origin
+      xyz="0.0391612392919453 0 -0.0147216342613309"
+      rpy="-1.07604539473374 -0.736096098087182 1.22327290772499" />
+    <parent
+      link="back_left" />
+    <child
+      link="bl_r11" />
+    <axis
+      xyz="-1 0 0" />
+  </joint>
+  <link
+    name="bl_r12">
+    <inertial>
+      <origin
+        xyz="-2.96984659087229E-15 4.10782519111308E-15 -3.60822483003176E-16"
+        rpy="0 0 0" />
+      <mass
+        value="0.00521298522084207" />
+      <inertia
+        ixx="1.46203935838422E-07"
+        ixy="-4.61566781804589E-22"
+        ixz="2.70984368672372E-21"
+        iyy="4.97488442821649E-07"
+        iyz="0"
+        izz="4.97488442821649E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/bl_r12.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/bl_r12.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="bl_r12_j"
+    type="continuous">
+    <origin
+      xyz="0.0265538109398446 0 -0.0323299289015048"
+      rpy="-0.519804234003629 -0.47265501657848 0.898820682938509" />
+    <parent
+      link="back_left" />
+    <child
+      link="bl_r12" />
+    <axis
+      xyz="-1 0 0" />
+  </joint>
+  <link
+    name="back_right">
+    <xacro:inertial_cylinder mass="${wheel_base_mass}" length="${wheel_base_thickness}" radius="${wheel_base_radius}">
+      <origin
+        xyz="0 0.001938 0"
+        rpy="0 0 0" />
+    </xacro:inertial_cylinder>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/back_right.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.70196 0.70196 0.70196 1" />
+      </material>
+    </visual>
+    <!-- <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/back_right.STL" />
+      </geometry>
+    </collision> -->
+  </link>
+  <joint
+    name="back_right_joint"
+    type="continuous">
+    <origin
+      xyz="-0.125 -0.175 0.035"
+      rpy="0 0 0" />
+    <parent
+      link="chassis" />
+    <child
+      link="back_right" />
+    <axis
+      xyz="0 -1 0" />
+    <limit effort="-10.0" velocity="-2.0"/>
+    <dynamics damping="0.0" friction="0.02"/>
+  </joint>
+  <link
+    name="br_r1">
+    <inertial>
+      <origin
+        xyz="-1.33226762955019E-15 0 1.38777878078145E-17"
+        rpy="0 0 0" />
+      <mass
+        value="0.00521298522084213" />
+      <inertia
+        ixx="1.46203935839495E-07"
+        ixy="-6.24521362477536E-23"
+        ixz="-9.92616735063633E-24"
+        iyy="4.97488442822233E-07"
+        iyz="-3.30872245021211E-23"
+        izz="4.97488442822233E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/br_r1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/br_r1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="br_r1_j"
+    type="continuous">
+    <origin
+      xyz="-0.0108281957152241 0 0.040411376563515"
+      rpy="-0.18457967107126 -0.186727217287703 0.788247158538211" />
+    <parent
+      link="back_right" />
+    <child
+      link="br_r1" />
+    <axis
+      xyz="1 0 0" />
+  </joint>
+  <link
+    name="br_r2">
+    <inertial>
+      <origin
+        xyz="-1.02695629777827E-15 -1.80411241501588E-16 -4.16333634234434E-17"
+        rpy="0 0 0" />
+      <mass
+        value="0.00521298522084213" />
+      <inertia
+        ixx="1.4620393583876E-07"
+        ixy="2.80331509594221E-21"
+        ixz="1.90251540887196E-22"
+        iyy="4.97488442821866E-07"
+        iyz="2.64697796016969E-23"
+        izz="4.97488442821866E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/br_r2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/br_r2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="br_r2_j"
+    type="continuous">
+    <origin
+      xyz="0.0108281957152232 0 0.0404113765635149"
+      rpy="0.184579671071263 0.186727217287703 0.788247158538219" />
+    <parent
+      link="back_right" />
+    <child
+      link="br_r2" />
+    <axis
+      xyz="-1 0 0" />
+  </joint>
+  <link
+    name="br_r3">
+    <inertial>
+      <origin
+        xyz="-9.1593E-16 -2.2898E-16 -1.3878E-17"
+        rpy="0 0 0" />
+      <mass
+        value="0.005213" />
+      <inertia
+        ixx="1.462E-07"
+        ixy="2.8587E-21"
+        ixz="7.5439E-22"
+        iyy="4.9749E-07"
+        iyz="-2.647E-23"
+        izz="4.9749E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/br_r3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.29804 0.29804 0.29804 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/br_r3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="br_r3_j"
+    type="continuous">
+    <origin
+      xyz="0.0295831808482904 0 0.0295831808482911"
+      rpy="0.608569627426163 0.53191982568626 0.941595495753275" />
+    <parent
+      link="back_right" />
+    <child
+      link="br_r3" />
+    <axis
+      xyz="-1 0 0" />
+  </joint>
+  <link
+    name="br_r4">
+    <inertial>
+      <origin
+        xyz="-7.49400541621981E-16 -3.05311331771918E-16 0"
+        rpy="0 0 0" />
+      <mass
+        value="0.00521298522084213" />
+      <inertia
+        ixx="1.46203935840007E-07"
+        ixy="2.60727329076714E-21"
+        ixz="8.17254445202391E-22"
+        iyy="4.9748844282249E-07"
+        iyz="2.64697796016969E-23"
+        izz="4.9748844282249E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/br_r4.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/br_r4.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="br_r4_j"
+    type="continuous">
+    <origin
+      xyz="0.0404113765635142 0 0.010828195715224"
+      rpy="1.20368211721965 0.765410198872839 1.31041793342933" />
+    <parent
+      link="back_right" />
+    <child
+      link="br_r4" />
+    <axis
+      xyz="-1 0 0" />
+  </joint>
+  <link
+    name="br_r5">
+    <inertial>
+      <origin
+        xyz="-7.21644966006352E-16 -3.19189119579733E-16 -4.16333634234434E-17"
+        rpy="0 0 0" />
+      <mass
+        value="0.00521298522084213" />
+      <inertia
+        ixx="1.4620393583956E-07"
+        ixy="2.89182342148538E-21"
+        ixz="1.27551250455677E-21"
+        iyy="4.97488442822266E-07"
+        iyz="-3.30872245021211E-23"
+        izz="4.97488442822266E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/br_r5.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/br_r5.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="br_r5_j"
+    type="continuous">
+    <origin
+      xyz="0.0404113765635143 0 -0.0108281957152237"
+      rpy="1.93791053637016 0.765410198872838 1.83117472016048" />
+    <parent
+      link="back_right" />
+    <child
+      link="br_r5" />
+    <axis
+      xyz="-1 0 0" />
+  </joint>
+  <link
+    name="br_r6">
+    <inertial>
+      <origin
+        xyz="-7.07767178198537E-16 -3.33066907387547E-16 -8.32667268468867E-17"
+        rpy="0 0 0" />
+      <mass
+        value="0.00521298522084219" />
+      <inertia
+        ixx="1.46203935841294E-07"
+        ixy="2.77270941327775E-21"
+        ixz="1.62458272305415E-21"
+        iyy="4.97488442823181E-07"
+        iyz="0"
+        izz="4.97488442823181E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/br_r6.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/br_r6.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="br_r6_j"
+    type="continuous">
+    <origin
+      xyz="0.0295831808482906 0 -0.0295831808482911"
+      rpy="2.53302302616364 0.53191982568626 2.19999715783653" />
+    <parent
+      link="back_right" />
+    <child
+      link="br_r6" />
+    <axis
+      xyz="-1 0 0" />
+  </joint>
+  <link
+    name="br_r7">
+    <inertial>
+      <origin
+        xyz="-7.7715611723761E-16 -4.16333634234434E-16 -3.46944695195361E-18"
+        rpy="0 0 0" />
+      <mass
+        value="0.00521298522084213" />
+      <inertia
+        ixx="1.46203935840007E-07"
+        ixy="2.59693353311023E-21"
+        ixz="2.32934060494933E-21"
+        iyy="4.97488442822489E-07"
+        iyz="2.64697796016969E-23"
+        izz="4.97488442822489E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/br_r7.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/br_r7.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="br_r7_j"
+    type="continuous">
+    <origin
+      xyz="0.0108281957152232 0 -0.0404113765635149"
+      rpy="2.95701298251854 0.186727217287703 2.35334549505159" />
+    <parent
+      link="back_right" />
+    <child
+      link="br_r7" />
+    <axis
+      xyz="-1 0 0" />
+  </joint>
+  <link
+    name="br_r8">
+    <inertial>
+      <origin
+        xyz="-8.84708972748172E-16 -3.88578058618805E-16 -4.16333634234434E-17"
+        rpy="0 0 0" />
+      <mass
+        value="0.00521298522084218" />
+      <inertia
+        ixx="1.46203935840644E-07"
+        ixy="2.69743597753542E-21"
+        ixz="1.65105250265584E-21"
+        iyy="4.97488442822808E-07"
+        iyz="-2.64697796016969E-23"
+        izz="4.97488442822807E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/br_r8.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/br_r8.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="br_r8_j"
+    type="continuous">
+    <origin
+      xyz="-0.0108281957152245 0 -0.0404113765635149"
+      rpy="-2.95701298251853 -0.186727217287704 2.35334549505159" />
+    <parent
+      link="back_right" />
+    <child
+      link="br_r8" />
+    <axis
+      xyz="-1 0 0" />
+  </joint>
+  <link
+    name="br_r9">
+    <inertial>
+      <origin
+        xyz="-9.78384040450919E-16 -4.16333634234434E-16 -1.2490009027033E-16"
+        rpy="0 0 0" />
+      <mass
+        value="0.00521298522084213" />
+      <inertia
+        ixx="1.4620393583956E-07"
+        ixy="2.6238169030182E-21"
+        ixz="2.45507205805739E-21"
+        iyy="4.97488442822266E-07"
+        iyz="-7.94093388050907E-23"
+        izz="4.97488442822266E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/br_r9.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/br_r9.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="br_r9_j"
+    type="continuous">
+    <origin
+      xyz="-0.0295831808482919 0 -0.0295831808482911"
+      rpy="-2.53302302616364 -0.531919825686261 2.19999715783653" />
+    <parent
+      link="back_right" />
+    <child
+      link="br_r9" />
+    <axis
+      xyz="-1 0 0" />
+  </joint>
+  <link
+    name="br_r10">
+    <inertial>
+      <origin
+        xyz="-9.71445146547012E-16 -4.9960036108132E-16 0"
+        rpy="0 0 0" />
+      <mass
+        value="0.00521298522084213" />
+      <inertia
+        ixx="1.46203935839495E-07"
+        ixy="2.66683029487096E-21"
+        ixz="2.74789399490116E-21"
+        iyy="4.97488442822233E-07"
+        iyz="-6.61744490042422E-24"
+        izz="4.97488442822233E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/br_r10.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/br_r10.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="br_r10_j"
+    type="continuous">
+    <origin
+      xyz="-0.0404113765635156 0 -0.0108281957152236"
+      rpy="-1.93791053637016 -0.765410198872839 1.83117472016048" />
+    <parent
+      link="back_right" />
+    <child
+      link="br_r10" />
+    <axis
+      xyz="-1 0 0" />
+  </joint>
+  <link
+    name="br_r11">
+    <inertial>
+      <origin
+        xyz="-9.57567358739198E-16 -4.9960036108132E-16 -5.55111512312578E-17"
+        rpy="0 0 0" />
+      <mass
+        value="0.00521298522084219" />
+      <inertia
+        ixx="1.46203935839819E-07"
+        ixy="2.55433373156375E-21"
+        ixz="4.180570815843E-21"
+        iyy="4.97488442822396E-07"
+        iyz="3.30872245021211E-23"
+        izz="4.97488442822396E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/br_r11.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/br_r11.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="br_r11_j"
+    type="continuous">
+    <origin
+      xyz="-0.0404113765635155 0 0.010828195715224"
+      rpy="-1.20368211721966 -0.76541019887284 1.31041793342933" />
+    <parent
+      link="back_right" />
+    <child
+      link="br_r11" />
+    <axis
+      xyz="-1 0 0" />
+  </joint>
+  <link
+    name="br_r12">
+    <inertial>
+      <origin
+        xyz="-8.60422844084496E-16 -5.55111512312578E-16 -1.11022302462516E-16"
+        rpy="0 0 0" />
+      <mass
+        value="0.00521298522084213" />
+      <inertia
+        ixx="1.4620393583951E-07"
+        ixy="2.80910536023008E-21"
+        ixz="3.31203117266232E-21"
+        iyy="4.9748844282224E-07"
+        iyz="-1.32348898008484E-23"
+        izz="4.9748844282224E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/br_r12.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lcl_agv_pkg/meshes/br_r12.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="br_r12_j"
+    type="continuous">
+    <origin
+      xyz="-0.0295831808482917 0 0.0295831808482913"
+      rpy="-0.608569627426163 -0.53191982568626 0.941595495753275" />
+    <parent
+      link="back_right" />
+    <child
+      link="br_r12" />
+    <axis
+      xyz="-1 0 0" />
+  </joint>
+
+	<!-- Define Color and Friction of Links -->
+
+	<!-- For fl_r 1 to 12 -->
+	<gazebo reference="fl_r1">
+		<material>Gazebo/Black</material>
+		<mu1 value="1000"/>
+		<mu2 value="1000"/>
+    <collision>
+      <surface>
+        <contact>
+          <ode>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+	</gazebo>
+	<gazebo reference="fl_r2">
+		<material>Gazebo/Black</material>
+		<mu1 value="1000"/>
+		<mu2 value="1000"/>
+    <collision>
+      <surface>
+        <contact>
+          <ode>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+	</gazebo>
+	<gazebo reference="fl_r3">
+		<material>Gazebo/Black</material>
+		<mu1 value="1000"/>
+		<mu2 value="1000"/>
+    <collision>
+      <surface>
+        <contact>
+          <ode>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+	</gazebo>
+	<gazebo reference="fl_r4">
+		<material>Gazebo/Black</material>
+		<mu1 value="1000"/>
+		<mu2 value="1000"/>
+    <collision>
+      <surface>
+        <contact>
+          <ode>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+	</gazebo>
+	<gazebo reference="fl_r5">
+		<material>Gazebo/Black</material>
+		<mu1 value="1000"/>
+		<mu2 value="1000"/>
+    <collision>
+      <surface>
+        <contact>
+          <ode>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+	</gazebo>
+	<gazebo reference="fl_r6">
+		<material>Gazebo/Black</material>
+		<mu1 value="1000"/>
+		<mu2 value="1000"/>
+    <collision>
+      <surface>
+        <contact>
+          <ode>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+	</gazebo>
+	<gazebo reference="fl_r7">
+		<material>Gazebo/Black</material>
+		<mu1 value="1000"/>
+		<mu2 value="1000"/>
+    <collision>
+      <surface>
+        <contact>
+          <ode>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+	</gazebo>
+	<gazebo reference="fl_r8">
+		<material>Gazebo/Black</material>
+		<mu1 value="1000"/>
+		<mu2 value="1000"/>
+    <collision>
+      <surface>
+        <contact>
+          <ode>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+	</gazebo>
+	<gazebo reference="fl_r9">
+		<material>Gazebo/Black</material>
+		<mu1 value="1000"/>
+		<mu2 value="1000"/>
+    <collision>
+      <surface>
+        <contact>
+          <ode>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+	</gazebo>
+
+	<gazebo reference="fl_r10">
+		<material>Gazebo/Black</material>
+		<mu1 value="1000"/>
+		<mu2 value="1000"/>
+    <collision>
+      <surface>
+        <contact>
+          <ode>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+	</gazebo>
+
+	<gazebo reference="fl_r11">
+		<material>Gazebo/Black</material>
+		<mu1 value="1000"/>
+		<mu2 value="1000"/>
+    <collision>
+      <surface>
+        <contact>
+          <ode>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+	</gazebo>
+
+	<gazebo reference="fl_r12">
+		<material>Gazebo/Black</material>
+		<mu1 value="1000"/>
+		<mu2 value="1000"/>
+    <collision>
+      <surface>
+        <contact>
+          <ode>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+	</gazebo>
+
+	<!-- For fr_r 1 to 12 -->
+	<gazebo reference="fr_r1">
+		<material>Gazebo/Black</material>
+		<mu1 value="1000"/>
+		<mu2 value="1000"/>
+    <collision>
+      <surface>
+        <contact>
+          <ode>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+	</gazebo>
+	<gazebo reference="fr_r2">
+		<material>Gazebo/Black</material>
+		<mu1 value="1000"/>
+		<mu2 value="1000"/>
+    <collision>
+      <surface>
+        <contact>
+          <ode>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+	</gazebo>
+	<gazebo reference="fr_r3">
+		<material>Gazebo/Black</material>
+		<mu1 value="1000"/>
+		<mu2 value="1000"/>
+    <collision>
+      <surface>
+        <contact>
+          <ode>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+	</gazebo>
+	<gazebo reference="fr_r4">
+		<material>Gazebo/Black</material>
+		<mu1 value="1000"/>
+		<mu2 value="1000"/>
+    <collision>
+      <surface>
+        <contact>
+          <ode>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+	</gazebo>
+	<gazebo reference="fr_r5">
+		<material>Gazebo/Black</material>
+		<mu1 value="1000"/>
+		<mu2 value="1000"/>
+    <collision>
+      <surface>
+        <contact>
+          <ode>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+	</gazebo>
+	<gazebo reference="fr_r6">
+		<material>Gazebo/Black</material>
+		<mu1 value="1000"/>
+		<mu2 value="1000"/>
+    <collision>
+      <surface>
+        <contact>
+          <ode>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+	</gazebo>
+	<gazebo reference="fr_r7">
+		<material>Gazebo/Black</material>
+		<mu1 value="1000"/>
+		<mu2 value="1000"/>
+    <collision>
+      <surface>
+        <contact>
+          <ode>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+	</gazebo>
+	<gazebo reference="fr_r8">
+		<material>Gazebo/Black</material>
+		<mu1 value="1000"/>
+		<mu2 value="1000"/>
+    <collision>
+      <surface>
+        <contact>
+          <ode>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+	</gazebo>
+	<gazebo reference="fr_r9">
+		<material>Gazebo/Black</material>
+		<mu1 value="1000"/>
+		<mu2 value="1000"/>
+    <collision>
+      <surface>
+        <contact>
+          <ode>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+	</gazebo>
+
+	<gazebo reference="fr_r10">
+		<material>Gazebo/Black</material>
+		<mu1 value="1000"/>
+		<mu2 value="1000"/>
+    <collision>
+      <surface>
+        <contact>
+          <ode>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+	</gazebo>
+
+	<gazebo reference="fr_r11">
+		<material>Gazebo/Black</material>
+		<mu1 value="1000"/>
+		<mu2 value="1000"/>
+    <collision>
+      <surface>
+        <contact>
+          <ode>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+	</gazebo>
+
+	<gazebo reference="fr_r12">
+		<material>Gazebo/Black</material>
+		<mu1 value="1000"/>
+		<mu2 value="1000"/>
+    <collision>
+      <surface>
+        <contact>
+          <ode>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+	</gazebo>
+
+	<!-- For bl_r 1 to 12 -->
+	<gazebo reference="bl_r1">
+		<material>Gazebo/Black</material>
+		<mu1 value="1000"/>
+		<mu2 value="1000"/>
+    <collision>
+      <surface>
+        <contact>
+          <ode>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+	</gazebo>
+	<gazebo reference="bl_r2">
+		<material>Gazebo/Black</material>
+		<mu1 value="1000"/>
+		<mu2 value="1000"/>
+    <collision>
+      <surface>
+        <contact>
+          <ode>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+	</gazebo>
+	<gazebo reference="bl_r3">
+		<material>Gazebo/Black</material>
+		<mu1 value="1000"/>
+		<mu2 value="1000"/>
+    <collision>
+      <surface>
+        <contact>
+          <ode>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+	</gazebo>
+	<gazebo reference="bl_r4">
+		<material>Gazebo/Black</material>
+		<mu1 value="1000"/>
+		<mu2 value="1000"/>
+    <collision>
+      <surface>
+        <contact>
+          <ode>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+	</gazebo>
+	<gazebo reference="bl_r5">
+		<material>Gazebo/Black</material>
+		<mu1 value="1000"/>
+		<mu2 value="1000"/>
+    <collision>
+      <surface>
+        <contact>
+          <ode>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+	</gazebo>
+	<gazebo reference="bl_r6">
+		<material>Gazebo/Black</material>
+		<mu1 value="1000"/>
+		<mu2 value="1000"/>
+    <collision>
+      <surface>
+        <contact>
+          <ode>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+	</gazebo>
+	<gazebo reference="bl_r7">
+		<material>Gazebo/Black</material>
+		<mu1 value="1000"/>
+		<mu2 value="1000"/>
+    <collision>
+      <surface>
+        <contact>
+          <ode>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+	</gazebo>
+	<gazebo reference="bl_r8">
+		<material>Gazebo/Black</material>
+		<mu1 value="1000"/>
+		<mu2 value="1000"/>
+    <collision>
+      <surface>
+        <contact>
+          <ode>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+	</gazebo>
+	<gazebo reference="bl_r9">
+		<material>Gazebo/Black</material>
+		<mu1 value="1000"/>
+		<mu2 value="1000"/>
+    <collision>
+      <surface>
+        <contact>
+          <ode>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+	</gazebo>
+
+	<gazebo reference="bl_r10">
+		<material>Gazebo/Black</material>
+		<mu1 value="1000"/>
+		<mu2 value="1000"/>
+    <collision>
+      <surface>
+        <contact>
+          <ode>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+	</gazebo>
+
+	<gazebo reference="bl_r11">
+		<material>Gazebo/Black</material>
+		<mu1 value="1000"/>
+		<mu2 value="1000"/>
+    <collision>
+      <surface>
+        <contact>
+          <ode>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+	</gazebo>
+
+	<gazebo reference="bl_r12">
+		<material>Gazebo/Black</material>
+		<mu1 value="1000"/>
+		<mu2 value="1000"/>
+    <collision>
+      <surface>
+        <contact>
+          <ode>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+	</gazebo>
+
+	<!-- For br_r 1 to 12 -->
+	<gazebo reference="br_r1">
+		<material>Gazebo/Black</material>
+		<mu1 value="1000"/>
+		<mu2 value="1000"/>
+    <collision>
+      <surface>
+        <contact>
+          <ode>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+	</gazebo>
+	<gazebo reference="br_r2">
+		<material>Gazebo/Black</material>
+		<mu1 value="1000"/>
+		<mu2 value="1000"/>
+    <collision>
+      <surface>
+        <contact>
+          <ode>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+	</gazebo>
+	<gazebo reference="br_r3">
+		<material>Gazebo/Black</material>
+		<mu1 value="1000"/>
+		<mu2 value="1000"/>
+    <collision>
+      <surface>
+        <contact>
+          <ode>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+	</gazebo>
+	<gazebo reference="br_r4">
+		<material>Gazebo/Black</material>
+		<mu1 value="1000"/>
+		<mu2 value="1000"/>
+    <collision>
+      <surface>
+        <contact>
+          <ode>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+	</gazebo>
+	<gazebo reference="br_r5">
+		<material>Gazebo/Black</material>
+		<mu1 value="1000"/>
+		<mu2 value="1000"/>
+    <collision>
+      <surface>
+        <contact>
+          <ode>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+	</gazebo>
+	<gazebo reference="br_r6">
+		<material>Gazebo/Black</material>
+		<mu1 value="1000"/>
+		<mu2 value="1000"/>
+    <collision>
+      <surface>
+        <contact>
+          <ode>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+	</gazebo>
+	<gazebo reference="br_r7">
+		<material>Gazebo/Black</material>
+		<mu1 value="1000"/>
+		<mu2 value="1000"/>
+    <collision>
+      <surface>
+        <contact>
+          <ode>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+	</gazebo>
+	<gazebo reference="br_r8">
+		<material>Gazebo/Black</material>
+		<mu1 value="1000"/>
+		<mu2 value="1000"/>
+    <collision>
+      <surface>
+        <contact>
+          <ode>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+	</gazebo>
+	<gazebo reference="br_r9">
+		<material>Gazebo/Black</material>
+		<mu1 value="1000"/>
+		<mu2 value="1000"/>
+    <collision>
+      <surface>
+        <contact>
+          <ode>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+	</gazebo>
+
+	<gazebo reference="br_r10">
+		<material>Gazebo/Black</material>
+		<mu1 value="1000"/>
+		<mu2 value="1000"/>
+    <collision>
+      <surface>
+        <contact>
+          <ode>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+	</gazebo>
+
+	<gazebo reference="br_r11">
+		<material>Gazebo/Black</material>
+		<mu1 value="1000"/>
+		<mu2 value="1000"/>
+    <collision>
+      <surface>
+        <contact>
+          <ode>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+	</gazebo>
+
+	<gazebo reference="br_r12">
+		<material>Gazebo/Black</material>
+		<mu1 value="1000"/>
+		<mu2 value="1000"/>
+    <collision>
+      <surface>
+        <contact>
+          <ode>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </contact>
+      </surface>
+    </collision>
+	</gazebo>
+
+
+</robot>
+

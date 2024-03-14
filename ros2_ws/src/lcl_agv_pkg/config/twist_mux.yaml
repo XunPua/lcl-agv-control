@@ -1,0 +1,12 @@
+# Use to set priority levels for different Twist messages
+twist_mux:
+  ros__parameters:
+    topics:
+      navigation:
+        topic   : cmd_vel
+        timeout : 0.5
+        priority: 10
+      gui:
+        topic   : gui/cmd_vel
+        timeout : 0.5
+        priority: 100
