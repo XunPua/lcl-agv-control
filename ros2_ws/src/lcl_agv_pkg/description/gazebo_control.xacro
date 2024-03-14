@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<!-- This XACRO initializes the planar move plugin provided by GAZEBO
+        this plugin is however an alternative to ROS2 control and is not used in this project -->
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <gazebo>
+        <plugin name="planar_move_plugin" filename="libgazebo_ros_planar_move.so">
+        <commandTopic>command/cmd_vel</commandTopic>
+        <odometryTopic>odom</odometryTopic>
+        <odometryFrame>odom</odometryFrame>
+        <odometryRate>30.0</odometryRate>
+        <robotBaseFrame>base_link</robotBaseFrame>
+        </plugin>
+    </gazebo>
+
+</robot>
